@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日语打字学习</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">日语打字学习</div>
+    <div class="nav-links">
+      <button class="nav-btn active" data-page="home">首页</button>
+      <button class="nav-btn" data-page="practice">练习</button>
+      <button class="nav-btn" data-page="wordlist">单词</button>
+      <button class="nav-btn" data-page="progress">进度</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- 首页 -->
+    <section id="page-home" class="page active">
+      <div class="home-hero">
+        <h1>欢迎来到日语打字学习</h1>
+        <p>通过键盘打字练习，轻松记忆日语单词</p>
+        <p class="home-desc">每个单词配有发音、假名、罗马音和例句</p>
+        <div class="home-jlpt-select">
+          <p>选择级别开始练习：</p>
+          <div class="jlpt-buttons">
+            <button class="btn btn-primary btn-jlpt" data-jlpt="5">JLPT N5</button>
+            <button class="btn btn-outline btn-jlpt" data-jlpt="4">JLPT N4</button>
+          </div>
+        </div>
+        <div class="home-stats" id="home-stats"></div>
+      </div>
+    </section>
+
+    <!-- 练习页 -->
+    <section id="page-practice" class="page">
+      <div class="practice-header">
+        <div class="jlpt-filter">
+          <button class="filter-btn active" data-jlpt="5">N5</button>
+          <button class="filter-btn" data-jlpt="4">N4</button>
+        </div>
+        <div class="practice-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="session-progress"></div>
+          </div>
+          <span class="progress-text" id="session-progress-text">0/10</span>
+        </div>
+      </div>
+
+      <div class="practice-card" id="practice-card">
+        <div class="sentence-display">
+          <div class="sentence-row">
+            <button class="btn-audio" id="btn-audio" title="播放句子发音">🔊</button>
+            <span class="sentence-text">
+              <span class="sentence-part" id="sentence-before"></span><span class="sentence-blank" id="sentence-blank">taberu(吃)</span><span class="sentence-part" id="sentence-after"></span>
+            </span>
+          </div>
+          <div class="sentence-reading" id="sentence-reading"></div>
+          <div class="sentence-meaning" id="sentence-meaning"></div>
+        </div>
+
+        <div class="typing-area">
+          <div class="typing-display" id="typing-display"></div>
+          <input
+            type="text"
+            id="typing-input"
+            class="typing-input"
+            placeholder="输入罗马音..."
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+          >
+        </div>
+      </div>
+
+      <div class="practice-controls">
+        <button class="btn btn-outline" id="btn-skip">跳过</button>
+        <div class="speed-control">
+          <label>语速：</label>
+          <button class="speed-btn active" data-speed="1">正常</button>
+          <button class="speed-btn" data-speed="0.5">慢速</button>
+        </div>
+      </div>
+
+      <!-- 练习结果 -->
+      <div class="practice-result hidden" id="practice-result">
+        <h2>练习完成！</h2>
+        <div class="result-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="result-correct">0</span>
+            <span class="stat-label">正确</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="result-wrong">0</span>
+            <span class="stat-label">错误</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="result-accuracy">0%</span>
+            <span class="stat-label">正确率</span>
+          </div>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn-primary" id="btn-retry">再来一轮</button>
+          <button class="btn btn-outline" id="btn-back-home">返回首页</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 单词列表页 -->
+    <section id="page-wordlist" class="page">
+      <div class="wordlist-header">
+        <h2>单词列表</h2>
+        <div class="jlpt-filter">
+          <button class="filter-btn active" data-jlpt="5">N5</button>
+          <button class="filter-btn" data-jlpt="4">N4</button>
+        </div>
+      </div>
+      <div class="wordlist" id="wordlist"></div>
+    </section>
+
+    <!-- 进度页 -->
+    <section id="page-progress" class="page">
+      <h2>学习进度</h2>
+      <div class="progress-overview" id="progress-overview">
+        <div class="stat-card">
+          <div class="stat-number" id="stat-total">0</div>
+          <div class="stat-desc">已练习单词</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-mastered">0</div>
+          <div class="stat-desc">已掌握</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-learning">0</div>
+          <div class="stat-desc">学习中</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-accuracy">0%</div>
+          <div class="stat-desc">总正确率</div>
+        </div>
+      </div>
+      <div class="progress-jlpt" id="progress-jlpt"></div>
+      <button class="btn btn-outline btn-danger" id="btn-reset">重置进度</button>
+    </section>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/typing.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
